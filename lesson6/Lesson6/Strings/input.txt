@@ -1,0 +1,1 @@
+﻿blue, yellow, green, black, gray, voilet, crimson, black, brown, white, orange
