@@ -1,9 +1,14 @@
 ﻿using System;
 
-namespace RefVal {
-    class Program {
-        static void Main(string[] args) {
+namespace RefVal 
+{
+    class Program 
+    {
+        static void Main(string[] args) 
+        {
+
             Console.WriteLine("Hello World!");
+
             int a = 25; //value type
             string str = "random string"; //reference type
 
@@ -23,46 +28,46 @@ namespace RefVal {
 
             //boxing & unboxing
             var p = new Person();
-            p.id = 24; p.name = "Andrey";
+            //boxing to an object
+            p.id = 24; 
+            p.name = "Andrey";
 
-            var p1 = new Person();
-            p1.id = "shjdfgh45sagdg"; p1.name = "Ivan";
-
-            object obj = "abcde";
-            try {
-                int x = (int)obj;
-            } catch (Exception e) {
-                Console.WriteLine(e.Message);
-            }
+            //unboxing to an integer
+            int id = (int) p.id;
         }
 
-        static void Change(string str, int a) {
+        static void Change(string str, int a)
+        {
             str = "abcde";
             a++;
             Console.WriteLine($"Change(string str, int a) \na = {a} | str = {str}\n---------------");
         }
 
-        static void Change(ref string str, ref int a) {
+        static void Change(ref string str, ref int a) 
+        {
             str = "abcdefg";
             a++;
             Console.WriteLine($"Change(ref string str, ref int a) \na = {a} | str = {str}\n---------------");
         }
 
-        static void CreateCircle(out Circle c) {
+        static void CreateCircle(out Circle c) 
+        {
             Console.WriteLine("CreateCircle(out Circle c)\n---------------");
             c.r = 10;
             c.x = 0;
             c.y = 21;
         }
 
-        struct Circle {
+        struct Circle 
+        {
             public int r;
             public int x;
             public int y;
         }
     }
 
-    class Person {
+    class Person 
+    {
         public object id;
         public string name;
     }

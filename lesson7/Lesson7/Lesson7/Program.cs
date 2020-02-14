@@ -97,6 +97,9 @@ namespace Lesson7
             Console.WriteLine("\t\tDivision");
 
             Console.WriteLine($"<a1({a1[0]}°{a1[1]}'{a1[2]}'')/2 =\t{(a1/2).ToString()}");
+
+
+            Console.WriteLine((new Angle(30, 45, 61) - new Angle(45, 30, 30)).ToString());
         }
     }
 }

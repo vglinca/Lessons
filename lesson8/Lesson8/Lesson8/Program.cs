@@ -9,7 +9,7 @@ namespace Lesson8
         {
             WorkWithExceptions();
 
-            WorkWithMultipleExceptions();
+            //WorkWithMultipleExceptions();
         }
 
         private static void WorkWithExceptions()
@@ -25,11 +25,12 @@ namespace Lesson8
             {
                 Check(i, j);
                 Console.WriteLine($"i / j = {i / j}");
-            } catch (WrongNumberException e)
+            } 
+            catch (WrongNumberException e) when (j > 0)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"{e.Message}\n{e.StackTrace}");
                 //#if DEBUG
-                throw;
+                //throw;
                 //#endif
             } catch (DivideByZeroException ex)
             {
@@ -53,7 +54,7 @@ namespace Lesson8
         {
             string conn = "DbConnectionString";
             string sta = "SELECT * FROM A";
-            var f = true;
+            var f = true; 
             var s = false;
 
             try
@@ -66,11 +67,12 @@ namespace Lesson8
             catch (FailedConnectionException e)
             {
                 Console.WriteLine($"Failed to connect to database.\n{e.StackTrace}");
-                throw;
+                //throw;
             }
             catch (SqlStatementException e)
             {
                 Console.WriteLine($"Failed to execute sql statement \"{sta}\".\n{e.StackTrace}");
+                //throw;
             } 
             finally
             {

@@ -8,7 +8,7 @@ namespace Lesson51
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public int Pages { get; set; }
+        public int Pages { get; set;}
         public string Genre { get; set; }
         public bool IsPublished { get; set; } = false;
         public bool IsReviewed { get; set; } = false;

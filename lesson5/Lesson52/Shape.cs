@@ -9,9 +9,5 @@ namespace Lesson52
         public virtual void Resize(int[] newSides) { }
         public virtual void Resize(int newSide) { }
         public abstract void WriteSidesLength();
-        public virtual void Draw(Shape shape)
-        {
-            Console.WriteLine("\nDrawing some shape...");
-        }
     }
 }

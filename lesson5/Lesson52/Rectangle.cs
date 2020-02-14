@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Lesson52
 {
@@ -52,7 +50,8 @@ namespace Lesson52
             if (newSides.Length == 2)
             {
                 Sides = newSides;
-            } else
+            } 
+            else
             {
                 Console.WriteLine("Could not resize rectangle.");
             }

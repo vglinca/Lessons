@@ -33,6 +33,10 @@ namespace Lesson51
 
         public void PublishBook(string bookTitle)
         {
+            if (string.IsNullOrWhiteSpace(bookTitle))
+            {
+                return;
+            }
             var book = Books.Find(b => b.Title == bookTitle);
             if (book == null)
             {
@@ -56,6 +60,10 @@ namespace Lesson51
 
         public void ReviewBook(string bookTitle)
         {
+            if (string.IsNullOrWhiteSpace(bookTitle))
+            {
+                return;
+            }
             var book = Books.Find(b => b.Title == bookTitle);
             if (book == null)
             {
