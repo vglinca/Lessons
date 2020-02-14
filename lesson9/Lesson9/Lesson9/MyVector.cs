@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MyVector
 {
@@ -20,7 +19,9 @@ namespace MyVector
         {
             Capacity = DefaultSize;
             collection = new T[DefaultSize];
-            _index = 0;
+            _index = -1;
+            //
+            Size = 0;
         }
 
         public MyVector(int size)
@@ -28,17 +29,27 @@ namespace MyVector
             //prevent negative number input
             Capacity = size < 0 ? 0 : size;
             collection = new T[Capacity];
-            _index = 0;
-            Size = 0;
+            _index = -1;
+            //Size = 0;
+            Size = size;
         }
 
         public void Add(T item)
         {
-            if (_index >= Capacity)
+            _index++;
+            if (_index >= Size || _index < 0)
             {
-                T[] tmp = new T[Capacity + DefaultSize];
+                T[] tmp;
+                if(Size == collection.Length)
+                {
+                    tmp = new T[Size + DefaultSize];
+                }
+                else
+                {
+                    tmp = new T[collection.Length];
+                }
                 int i = 0;
-                while (i < _index)
+                while (i < Size)
                 {
                     tmp[i] = collection[i];
                     i++;
@@ -46,26 +57,37 @@ namespace MyVector
                 tmp[i] = item;
                 collection = tmp;
                 Capacity = tmp.Length;
-            } else
+            } 
+            else
             {
                 collection[_index] = item;
             }
+            //if(Size != 0)
+            //{
+            //    _index++;
+            //}
             Size++;
-            _index++;
         }
 
         public void InsertAt(int pos, T item)
         {
-            if (pos < 0 || pos > Size)
+            if (pos < 0 || pos >= Size)
             {
                 throw new ArgumentOutOfRangeException($"Attempt to access unassigned memory area.");
-            } else if (pos == Size)
-            {
-                Add(item);
-            } else
+            }
+            else
             {
                 int i = 0, j = 0;
-                var tmp = new T[Size + DefaultSize];
+                T[] tmp;
+                if (Size == collection.Length)
+                {
+                    tmp = new T[Size + DefaultSize];
+                }
+                else
+                {
+                    tmp = new T[Size];
+                }
+                
                 while (i < pos)
                 {
                     tmp[j] = collection[i];
