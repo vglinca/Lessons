@@ -14,7 +14,10 @@ namespace Lesson7
         public int Degree 
         {
             get { return _deg; }
-            set { _deg = value; }
+            set 
+            {
+                _deg = value > 360 ? value - 360 : value;
+            }
         }
         public int Minutes 
         {
@@ -43,17 +46,11 @@ namespace Lesson7
 
         public Angle(int deg, int min, int sec)
         {
-            //if(min >= 60 || sec >= 60 || min <= 0 || sec <= 0)
-            //{
-            //    Console.WriteLine($"Minutes either seconds must be greater than 0 and smaller than 60.");
-            //    return;
-            //}
-            //_deg = deg;
-            //_min = min;
-            //_sec = sec;
             if(deg < 0 || min < 0 || sec < 0)
             {
-                throw new Exception("Angle cannot have negative parameters.");
+                Console.WriteLine("Invalid input.");
+                Degree = Minutes = Seconds = 0;
+                return;
             }
             Degree = deg;
             Minutes = min;
@@ -70,8 +67,7 @@ namespace Lesson7
 
         public override int GetHashCode()
         {
-            //return HashCode.Combine(_deg, _min, _sec);
-            return $"{_deg} : {_min} : {_sec}".GetHashCode();
+            return $"{_deg}:{_min}:{_sec}".GetHashCode();
         }
 
         public override string ToString()
@@ -141,6 +137,36 @@ namespace Lesson7
             return new Angle(a1.Degree + a2.Degree, a1.Minutes + a2.Minutes, a1.Seconds + a2.Seconds);
         }
 
+        public static Angle operator -(Angle a1, Angle a2)
+        {
+            var s1 = ToSeconds(a1);
+            var s2 = ToSeconds(a2);
+
+            var dif = s1 - s2;
+            if(dif >= 0)
+            {
+                return ToAngle(dif);
+            }
+            //make dif greater than zero
+            dif *= -1;
+            var ang = ToAngle(dif);
+
+            return new Angle(360 - ang._deg, 60 - ang._min, 60 - ang._sec);
+        }
+
+        public static Angle operator *(Angle a, int n)
+        {
+            //convert angle to seconds
+            var s = ToSeconds(a);
+            return ToAngle(s * n);
+        }
+
+        public static Angle operator /(Angle a, int n)
+        {
+            var s = ToSeconds(a);
+            return ToAngle(s / n);
+        }
+
         public int this[int i]
         {
             get
@@ -176,6 +202,20 @@ namespace Lesson7
             }
         }
 
+        public static int ToSeconds(Angle a)
+        {
+            return a._sec + a._min * 60 + a._deg * 3600;
+        }
+
+        private static Angle ToAngle(int s)
+        {
+            int deg = s / 3600;
+            s %= 3600;
+            int min = s / 60;
+            int sec = s % 60;
+            return new Angle(deg, min, sec);
+        }
+
         private class AngleEnumerator : IEnumerator
         {
             private readonly Angle _angle;
@@ -198,6 +238,5 @@ namespace Lesson7
                 _index = -1;
             }
         }
-
     }
 }
