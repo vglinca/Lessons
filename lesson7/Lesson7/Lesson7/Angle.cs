@@ -150,8 +150,8 @@ namespace Lesson7
             //make dif greater than zero
             dif *= -1;
             var ang = ToAngle(dif);
-
-            return new Angle(360 - ang._deg, 60 - ang._min, 60 - ang._sec);
+            //we should get something like: ang + X = 359°59'60'' = 360°
+            return new Angle(359 - ang._deg, 59 - ang._min, 60 - ang._sec);
         }
 
         public static Angle operator *(Angle a, int n)
