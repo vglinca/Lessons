@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SCS.Repository
 {
-	class Repository<T> : IRepository<T> where T: class
+	class Repository<T, TId> : IRepository<T, TId> where T: Entity<TId>
 	{
-		private IList<T> _collection;
+		private List<T> _collection;
 		public Repository()
 		{
 			_collection = new List<T>();
@@ -27,9 +27,10 @@ namespace SCS.Repository
 			return _collection;
 		}
 
-		public T GetById(int id)
+
+		public T GetById(TId id)
 		{
-			return _collection[id - 1];
+			return _collection.Find(e => e.Id.Equals(id));
 		}
 
 		public void Insert(T entity)
@@ -41,13 +42,15 @@ namespace SCS.Repository
 			_collection.Add(entity);
 		}
 
-		public void Update(T entity, int id)
+		
+		public void Update(T newEntity, TId id)
 		{
-			if (entity == null)
+			if (newEntity == null)
 			{
-				throw new ArgumentNullException(nameof(entity));
+				throw new ArgumentNullException(nameof(newEntity));
 			}
-			_collection[id - 1] = entity;
+			var item = _collection.Find(e => e.Id.Equals(id));
+			item = newEntity;
 		}
 	}
 }

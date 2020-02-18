@@ -161,6 +161,13 @@ namespace Lesson7
             return ToAngle(s * n);
         }
 
+        public static Angle operator *(int n, Angle a)
+        {
+            //convert angle to seconds
+            var s = ToSeconds(a);
+            return ToAngle(s * n);
+        }
+
         public static Angle operator /(Angle a, int n)
         {
             var s = ToSeconds(a);

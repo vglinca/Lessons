@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace SCS
@@ -18,9 +20,8 @@ namespace SCS
 		RubicsCube, Megaminx, Skewb, SquareOne, Cuboid, ChangingShape
 	}
 
-	class Puzzle
+	class Puzzle : Entity<int>, IEqualityComparer<Puzzle>
 	{
-		public int Id { get; set; }
 		public string Name { get; set; }
 		public int BrandId { get; set; }
 		public Brand Brand { get; set; }
@@ -34,5 +35,15 @@ namespace SCS
 		public bool IsWca { get; set; }
 		public int ItemsExist { get; set; }
 		public string? Description { get; set; }
+
+		public bool Equals([AllowNull] Puzzle x, [AllowNull] Puzzle y)
+		{
+			return x.Id.Equals(y.Id) && x.BrandId.Equals(y.BrandId);
+		}
+
+		public int GetHashCode([DisallowNull] Puzzle obj)
+		{
+			return $"{Id}{BrandId}".GetHashCode();
+		}
 	}
 }

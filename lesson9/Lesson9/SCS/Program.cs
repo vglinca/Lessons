@@ -7,8 +7,8 @@ namespace SCS
 	{
 		static void Main(string[] args)
 		{
-			var handler = new RepositoryHandler();
-			IRepository<Brand> brandRepository = handler.GetRepository<Brand>();
+			IRepository<Brand, int> brandRepository = new Repository<Brand, int>();
+			IRepository<Puzzle, int> puzzleRepository = new Repository<Puzzle, int>();
 
 			brandRepository.Insert(new Brand { Id = 1, Name = "Gan", Description = "" });
 			brandRepository.Insert(new Brand { Id = 2, Name = "MoYu", Description = "" });
@@ -30,7 +30,6 @@ namespace SCS
 				Console.WriteLine($"Id = {brand.Id} | Name = {brand.Name}");
 			}
 
-			IRepository<Puzzle> puzzleRepository = handler.GetRepository<Puzzle>();
 
 			puzzleRepository.Insert(new Puzzle
 			{

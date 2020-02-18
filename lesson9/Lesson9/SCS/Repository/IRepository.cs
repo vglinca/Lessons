@@ -4,12 +4,12 @@ using System.Text;
 
 namespace SCS.Repository
 {
-	interface IRepository<T> where T: class
+	interface IRepository<T, TId> where T: Entity<TId>
 	{
-		T GetById(int id);
+		T GetById(TId id);
 		IEnumerable<T> GetAll();
 		void Insert(T entity);
-		void Update(T entity, int id);
+		void Update(T entity, TId id);
 		void Delete(T entity);
 	}
 }

@@ -37,7 +37,7 @@ namespace MyVector
         public void Add(T item)
         {
             _index++;
-            if (_index >= Size || _index < 0)
+            if (_index >= Size)
             {
                 T[] tmp;
                 if(Size == collection.Length)
@@ -58,10 +58,10 @@ namespace MyVector
                 collection = tmp;
                 Capacity = tmp.Length;
             } 
-            else
-            {
-                collection[_index] = item;
-            }
+            //else
+            //{
+            //    collection[_index] = item;
+            //}
             //if(Size != 0)
             //{
             //    _index++;
@@ -73,7 +73,7 @@ namespace MyVector
         {
             if (pos < 0 || pos >= Size)
             {
-                throw new ArgumentOutOfRangeException($"Attempt to access unassigned memory area.");
+                throw new ArgumentOutOfRangeException();
             }
             else
             {
@@ -111,7 +111,7 @@ namespace MyVector
         {
             if (pos < 0 || pos >= Size)
             {
-                throw new ArgumentOutOfRangeException($"Attempt to access unassigned memory area.");
+                throw new ArgumentOutOfRangeException();
             }
             var tmp = new T[Size - 1];
             int i = 0, j = 0;
@@ -141,7 +141,7 @@ namespace MyVector
         {
             if (left < 0 || left >= Size || right < 0 || right >= Size)
             {
-                throw new ArgumentOutOfRangeException($"Attempt to access unassigned memory area.");
+                throw new ArgumentOutOfRangeException();
             }
             var tmp = collection[left];
             collection[left] = collection[right];

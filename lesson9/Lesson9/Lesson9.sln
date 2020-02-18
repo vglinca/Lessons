@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyVector", "Lesson9\MyVecto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCS", "SCS\SCS.csproj", "{9B54EB0D-B2D6-4A67-B5DF-BA35EB5554D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovContrCov", "CovContrCov\CovContrCov.csproj", "{B8737236-812D-4E00-969C-6A7FB9205FAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CovContrCov", "CovContrCov\CovContrCov.csproj", "{B8737236-812D-4E00-969C-6A7FB9205FAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

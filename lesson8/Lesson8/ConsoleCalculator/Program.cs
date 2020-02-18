@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using static System.Console;
 
 namespace ConsoleCalculator
@@ -7,6 +8,7 @@ namespace ConsoleCalculator
 	{
 		static void Main(string[] args)
 		{
+			Debug.Write("Enter method Main(string[] args)");
 
 			AppDomain domain = AppDomain.CurrentDomain;
 			domain.UnhandledException += new UnhandledExceptionEventHandler(HandleException);
@@ -24,6 +26,7 @@ namespace ConsoleCalculator
 
 			try
 			{
+				Debug.Write("Trying to calculate result.");
 				var result = calculator.Calculate(number1, number2, operation);
 				DisplayResult(result);
 			}
