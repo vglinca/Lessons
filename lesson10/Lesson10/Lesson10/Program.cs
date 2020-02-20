@@ -38,7 +38,7 @@ namespace Lesson10
                 {
                     return c.Name;
                 });
-
+            //Predicate<Car> predicate1=c=> c.Origin == "US" && c.Name.Contains("Chevrolet");
             Func<Car, bool> predicate = delegate (Car c)
             {
                 return c.Origin == "US" && c.Name.Contains("Chevrolet");
