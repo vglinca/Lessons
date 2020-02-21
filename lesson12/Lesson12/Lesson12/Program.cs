@@ -7,51 +7,47 @@ namespace Publisher
 	{
 		static void Main(string[] args)
 		{
-			var publisher = new Publisher();
+			var publisher = new Bank();
 
-			var receiver1 = new WebAppReceiver();
-			var receiver2 = new WebAppReceiver();
-			var receiver3 = new WebAppReceiver();
-			var receiver4 = new WebAppReceiver();
+			var broker1 = new Broker();
+			var broker2 = new Broker();
+			var broker3 = new Broker();
+			var broker4 = new Broker();
 
-			var phoneReceiver1 = new PhoneAppReceiver();
-			var phoneReceiver2 = new PhoneAppReceiver();
 
-			publisher.MessageSent += receiver1.OnMessageReceived;
-			publisher.MessageSent += receiver2.OnMessageReceived;
-			publisher.MessageSent += receiver3.OnMessageReceived;
-			publisher.MessageSent += receiver4.OnMessageReceived;
+			publisher.MessageSent += broker1.OnMessageReceived;
+			publisher.MessageSent += broker2.OnMessageReceived;
+			publisher.MessageSent += broker3.OnMessageReceived;
+			publisher.MessageSent += broker4.OnMessageReceived;
 
-			publisher.MessageSent += phoneReceiver1.OnReceive;
-			publisher.MessageSent += phoneReceiver2.OnReceive;
-
-			publisher.MessageSent -= receiver2.OnMessageReceived;
+			Random rnd = new Random();
 
 			for (int i = 0; i < 4; i++)
 			{
-				if(i == 2)
-				{
-					publisher.MessageSent += receiver2.OnMessageReceived;
-				}
-				Thread.Sleep(500);
-				publisher.SendBroadcast($"Test message #{i + 1}.");
+				var usd = rnd.Next(50, 250);
+				var eur = rnd.Next(35, 400);
+				Console.WriteLine("-----------------------------------------------------------------------");
+				publisher.UpdateRates($"Updating rates. New qoutations: USD: {usd}; EUR: {eur}.", usd, eur);
 			}
 		}
 	}
 
-	public class WebAppReceiver
+	public class Broker
 	{
 		public void OnMessageReceived(object sender, MessageEventArgs e)
 		{
-			Console.WriteLine($"Message received.\tText: \"{e.Message}\".");
-		}
-	}
-
-	public class PhoneAppReceiver
-	{
-		public void OnReceive(object sender, MessageEventArgs e)
-		{
-			Console.WriteLine($"Phone app received a message.\t\"{e.Message}\".");
+			Console.WriteLine();
+			Console.WriteLine($"Rating info from bank: {e.Message}.");
+			if (e.EUR < 100)
+			{
+				Console.WriteLine($"Sell EURO with rate {e.EUR} and buy USD with rate {e.USD}.");
+			} else if (e.USD < 120)
+			{
+				Console.WriteLine($"Sell USD with rate {e.USD} and buy EURO with rate {e.EUR}.");
+			} else
+			{
+				Console.WriteLine($"Ignore rating update.");
+			}
 		}
 	}
 }

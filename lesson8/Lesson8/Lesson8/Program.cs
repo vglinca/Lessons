@@ -29,9 +29,9 @@ namespace Lesson8
             catch (WrongNumberException e) when (j > 0)
             {
                 Console.WriteLine($"{e.Message}\n{e.StackTrace}");
-                //#if DEBUG
-                //throw;
-                //#endif
+#if DEBUG
+                throw;
+#endif
             } catch (DivideByZeroException ex)
             {
                 Console.WriteLine(ex.Message);

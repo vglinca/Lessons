@@ -1,6 +1,10 @@
-﻿using System;
+﻿#define MYCONDITION
+
+using System;
 using System.Diagnostics;
 using static System.Console;
+
+
 
 namespace ConsoleCalculator
 {
@@ -46,10 +50,12 @@ namespace ConsoleCalculator
 			{
 				WriteLine($"Something went wrong.\n{ex}");
 			}
+#if MYCONDITION
 			finally
 			{
 				WriteLine("Finally block....");
 			}
+#endif
 
 			WriteLine("\nPress enter to exit.");
 			ReadLine();
