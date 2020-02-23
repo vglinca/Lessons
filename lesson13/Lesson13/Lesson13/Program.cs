@@ -74,15 +74,19 @@ namespace Lesson13
             //retrieve name of changed file
             var fileName = Path.GetFileName(e.FullPath);
             //we wait until changed file is locked to prevent exception
-            while (IsFileLocked(e.FullPath)) ;
+            //while (IsFileLocked(e.FullPath)) ;
+            while (FilesLockedInDirectory(dir1Path)) ;
+            
             //now we can go further
             Console.WriteLine($"File {fileName} is unlocked.");
             //compute hash for changed file from dir1
             var dir1FileHash = CheckMD5(e.FullPath);
             //create path for changed file in dir2 and check if such file exists
             var dir2FilePath = Path.Combine(dir2Path, fileName);
-            if (File.Exists(dir2FilePath))
+            if (File.Exists(dir2FilePath) && dir1FileHash != null)
             {
+                //while (IsFileLocked(dir2FilePath)) ;
+                while (FilesLockedInDirectory(dir2Path)) ;
                 //now we can compute hash for equivalent file in dir2
                 var dir2FileHash = CheckMD5(dir2FilePath);
                 //and check if file has been actually changed
@@ -125,15 +129,21 @@ namespace Lesson13
             //destPath is the full path of a new file in dir2 which will be created here.
             //srcPath is the full path of a created file in dir2
             //wait until file is locked by another process
-            while (IsFileLocked(srcPath)) ;
-            using var inStream = new FileStream(srcPath, FileMode.Open);
-            using var reader = new StreamReader(inStream);
-            using var outStream = new FileStream(destPath, FileMode.Create);
-            using var writer = new StreamWriter(outStream);
-            while (!reader.EndOfStream)
+            //while (IsFileLocked(srcPath)) ;
+            //while (IsFileLocked(destPath)) ;
+            while (FilesLockedInDirectory(dir1Path)) ;
+            while (FilesLockedInDirectory(dir2Path)) ;
+            if (!IsTemporaryFile(srcPath))
             {
-                var line = await reader.ReadLineAsync();
-                await writer.WriteLineAsync(line);
+                using var inStream = new FileStream(srcPath, FileMode.OpenOrCreate);
+                using var reader = new StreamReader(inStream);
+                using var outStream = new FileStream(destPath, FileMode.Create);
+                using var writer = new StreamWriter(outStream);
+                while (!reader.EndOfStream)
+                {
+                    var line = await reader.ReadLineAsync();
+                    await writer.WriteLineAsync(line);
+                }
             }
         }
         private static void RenameFileInDir2(string oldPath, string newPath)
@@ -151,17 +161,47 @@ namespace Lesson13
 
         private static string CheckMD5(string filename)
         {
-            using var md5 = MD5.Create();
-            using var stream = File.OpenRead(filename);
-            return Encoding.Default.GetString(md5.ComputeHash(stream));
+            if (File.Exists(filename))
+            {
+                while (IsFileLocked(filename)) ;
+                using var md5 = MD5.Create();
+                using var stream = File.OpenRead(filename);
+                return Encoding.Default.GetString(md5.ComputeHash(stream));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private static bool IsTemporaryFile(string filepath)
+        {
+            var extension = Path.GetExtension(filepath);
+            return extension == ".tmp";
+        }
+
+        private static bool FilesLockedInDirectory(string directory)
+        {
+            var files = Directory.EnumerateFiles(directory);
+            foreach (var f in files)
+            {
+                if (IsFileLocked(f))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static bool IsFileLocked(string path)
         {
             try
             {
-                using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
-                stream.Close();
+                if (File.Exists(path))
+                {
+                    using FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None);
+                    stream.Close();
+                } 
             }
             catch (Exception)
             {
