@@ -13,7 +13,7 @@ namespace SCS.Repository
 		{
 			_collection = new List<T>();
 		}
-		public void Delete(T entity)
+		public virtual void Delete(T entity)
 		{
 			if(entity == null)
 			{
@@ -22,18 +22,18 @@ namespace SCS.Repository
 			_collection.Remove(entity);
 		}
 
-		public IEnumerable<T> GetAll()
+		public virtual IEnumerable<T> GetAll()
 		{
 			return _collection;
 		}
 
 
-		public T GetById(TId id)
+		public virtual T GetById(TId id)
 		{
 			return _collection.Find(e => e.Id.Equals(id));
 		}
 
-		public void Insert(T entity)
+		public virtual void Insert(T entity)
 		{
 			if (entity == null)
 			{
@@ -43,7 +43,7 @@ namespace SCS.Repository
 		}
 
 		
-		public void Update(T newEntity, TId id)
+		public virtual void Update(T newEntity, TId id)
 		{
 			if (newEntity == null)
 			{

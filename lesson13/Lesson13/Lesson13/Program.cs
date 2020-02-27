@@ -7,10 +7,10 @@ namespace Lesson13
 {
     class Program
     {
-        private static string dir1Path = //@"D:\dev\Amdaris_lessons\dir1";
-        @"D:\dir1";
-        private static string dir2Path = //@"D:\dev\Amdaris_lessons\dir2";
-            @"D:\dir2";
+        private static string dir1Path = @"D:\dev\Amdaris_lessons\dir1";
+        //@"D:\dir1";
+        private static string dir2Path = @"D:\dev\Amdaris_lessons\dir2";
+            //@"D:\dir2";
         static void Main(string[] args)
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
