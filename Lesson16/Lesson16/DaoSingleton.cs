@@ -6,15 +6,15 @@ namespace Singleton
 {
     class DaoSingleton
     {
-        private static volatile DaoSingleton _instance = null;
+        private static  DaoSingleton _instance = null;
 
         private static readonly object key = new object();
 
-        private static List<string> _collection;
+        //private static List<string> _collection;
 
         private DaoSingleton()
         {
-            _collection = new List<string>();
+            //_collection = new List<string>();
         }
 
         //public static DaoSingleton Instance
@@ -53,19 +53,19 @@ namespace Singleton
             return _instance;
         }
 
-        public static List<string> Getall()
-        {
-            return _collection;
-        }
+        //public static List<string> Getall()
+        //{
+        //    return _collection;
+        //}
 
-        public static void AddOne(string str)
-        {
-            _collection.Add(str);
-        }
+        //public static void AddOne(string str)
+        //{
+        //    _collection.Add(str);
+        //}
 
-        public static void Remove(int index)
-        {
-            _collection.Remove(_collection[index]);
-        }
+        //public static void Remove(int index)
+        //{
+        //    _collection.Remove(_collection[index]);
+        //}
     }
 }

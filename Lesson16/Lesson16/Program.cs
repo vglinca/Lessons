@@ -7,8 +7,8 @@ namespace Singleton
     {
         static void Main(string[] args)
         {
-            WithThreadSafe();
-            //WithThreadUnsafe();
+            //WithThreadSafe();
+            WithThreadUnsafe();
         }
         
         private static void WithThreadSafe()
