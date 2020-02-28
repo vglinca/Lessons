@@ -87,9 +87,11 @@ namespace Lesson14
 
             foreach (var item in items)
             {
+                //use c# 7 operator is
                 if(item is int)
                 {
                     Console.WriteLine($"Integer value found {item}");
+                    //and use c# 7 operator as
                     var str = item as string;
                     str += " is a string.";
                     Console.WriteLine($"Covert {item} to string. {item}");
