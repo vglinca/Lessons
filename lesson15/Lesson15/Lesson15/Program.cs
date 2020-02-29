@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Lesson15
 {
@@ -54,9 +55,28 @@ namespace Lesson15
             var localOffset = new DateTimeOffset(DateTime.Now);
             DateTimeOffset utcOffset = DateTime.UtcNow;
             Console.WriteLine($"Local time: {localOffset}\nUtc time: {localOffset.UtcDateTime}");
-
+            //time zones
             var zone = TimeZone.CurrentTimeZone;
-            Console.WriteLine($"{zone.StandardName}");
+            Console.WriteLine($"{zone.GetUtcOffset(date2)}");
+
+            Console.WriteLine("Enter date in format: dd-MM-yyyy");
+            string inputDate = Console.ReadLine();
+            var regex = new Regex("[0-9]{2}-[0-9]{2}-[1,2]{1}[0-9]{3}");
+            while(!regex.IsMatch(inputDate))
+            {
+                Console.WriteLine("You entered date in wrong format. Try again.");
+                Console.WriteLine("Enter date in format: dd-MM-yyyy");
+                inputDate = Console.ReadLine();
+            }
+            Console.WriteLine($"You entered: {inputDate}");
+            //DateTimeOffset dto = DateTimeOffset.Parse(inputDate, DateTimeOffset.Now);
+            //Console.WriteLine($"{dto}");
+            byte[] utf8Bytes = Encoding.UTF8.GetBytes(inputDate);
+            using var writer = new BinaryWriter(File.Create(@"D:\dev\lesson15\Lesson15\date.txt"));
+            foreach (var b in utf8Bytes)
+            {
+                writer.Write(b);
+            }
         }
     }
 }

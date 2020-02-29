@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Lesson10
 {
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static IEnumerable<Car> ToCar(this IEnumerable<string> src)
         {
