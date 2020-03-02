@@ -51,13 +51,16 @@ namespace Lesson14
                 worker.Salary = CalculateSalary(worker.Stage,
                     worker.HoursWorked > 135 ? true : false);
                 //using string interpolation
-                Console.WriteLine($"Worker: {worker.Name()} - Salary: {String.Format("{0:0.00}", worker.Salary)}.");
+                Console.WriteLine($"Worker: {worker.Name} - Salary: {String.Format("{0:0.00}", worker.Salary)}.");
             }
 
             Console.WriteLine("------------------------------------------------------------------------");
 
             //assign dynamic variable with workers collection
-            var filteredWorkers = workers.Where(w => w.HoursWorked < 180);
+            var filteredWorkers = workers.Where(w => 
+            {
+                return w.HoursWorked < 180;
+            } );
             dynamicVar = filteredWorkers;
             foreach (var w in dynamicVar)
             {
@@ -172,7 +175,7 @@ namespace Lesson14
         public string LastName { private get; set; }
         //expression body method
         //it returns concatenated FirstName and LastName
-        public string Name() => FirstName + LastName;
+        public string Name => $"{FirstName} {LastName}";
         public int Age { get; set; }
         public double HoursWorked { get; set; }
         public int Stage { get; set; }
