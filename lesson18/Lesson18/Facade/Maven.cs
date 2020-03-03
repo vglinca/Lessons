@@ -4,6 +4,8 @@ using System.Text;
 
 namespace Facade
 {
+    //this is the facade
+    //it interacts with all subsystems and eases client interaction
     public class Maven
     {
         BuildValidator _buildValidator;

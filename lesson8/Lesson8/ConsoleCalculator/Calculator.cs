@@ -17,7 +17,7 @@ namespace ConsoleCalculator
 					}
 					catch (ArithmeticException ex)
 					{
-						throw new CalculationException("An error occered during division.", ex);
+						throw new CalculationException("An error occured during division.", ex);
 						//throw;
 						//throw new ArithmeticException();
 						//throw new ArithmeticException("An error occered while trying to calculate.", ex);

@@ -56,21 +56,13 @@ namespace Lesson15
             TimeZoneInfo zoneInfo = TimeZoneInfo.Local;
             Console.WriteLine($"Local Time zone base utc offset: {zoneInfo.BaseUtcOffset}");
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            //Console.WriteLine("Enter date in format: dd-MM-yyyy");
-            //string inputDate = Console.ReadLine();
-            //var regex = new Regex("[0-9]{2}-[0-9]{2}-[1,2]{1}[0-9]{3}");
-            //while (!regex.IsMatch(inputDate))
-            //{
-            //    Console.WriteLine("You entered date in wrong format. Try again.");
-            //    Console.WriteLine("Enter date in format: dd-MM-yyyy");
-            //    inputDate = Console.ReadLine();
-            //}
-            //Console.WriteLine($"You entered: {inputDate}");
-            //DateTimeOffset dto = DateTimeOffset.Parse(inputDate, DateTimeOffset.Now);
+            Console.WriteLine("Enter date in format: dd-MM-yyyy");
+            string inputDate = Console.ReadLine();
+
             //Console.WriteLine($"{dto}");
             //byte[] utf8Bytes = Encoding.UTF8.GetBytes(inputDate);
             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            byte[] utf8Bytes = Encoding.UTF8.GetBytes(DateTimeOffset.Now.ToString());
+            byte[] utf8Bytes = Encoding.UTF8.GetBytes(inputDate);
             using (var writer = new BinaryWriter(File.Create(@"D:\dev\lesson15\Lesson15\date.txt")))
             {
                 foreach (var b in utf8Bytes)
@@ -83,6 +75,7 @@ namespace Lesson15
                 var readStr = reader.ReadLine();
                 Console.WriteLine($"Date from file: {readStr}");
                 var dateFromFile = DateTime.Parse(readStr);
+                var dateFromFile1 = DateTimeOffset.Parse(readStr, CultureInfo.InvariantCulture);
                 Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 Console.WriteLine($"Current culture date: {dateFromFile.ToString(CultureInfo.CurrentCulture)}");
                 Console.WriteLine($"Palau date: {dateFromFile.ToString(CultureInfo.GetCultureInfo("en-PW"))}");

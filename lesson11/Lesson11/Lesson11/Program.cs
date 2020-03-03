@@ -171,6 +171,8 @@ namespace Lesson11
 						Cars = cars
 					});
 
+			
+
 			//foreach (var item in query51)
 			//{
 			//	Console.WriteLine($"{item.Manufacturer.Name}:{item.Manufacturer.Country}");

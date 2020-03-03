@@ -168,13 +168,13 @@ namespace Lesson15
             if (isDisposing)
             {
                 Console.WriteLine("Disposing resources");
-                for (int i = 0; i < collection.Length; i++)
-                {
-                    collection[i] = default;
-                }
                 collection = null;
                 _index = default;
                 Capacity = default;
+            }
+            for (int i = 0; i < collection.Length; i++)
+            {
+                collection[i] = default;
             }
         }
 
