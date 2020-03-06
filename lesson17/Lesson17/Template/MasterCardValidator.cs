@@ -6,6 +6,7 @@ namespace Template
 {
     public class MasterCardValidator : CardValidator
     {
+        //same logic as it was in strategy with checking start numbers and length
         public override bool BeginsWithCorrectNumbers(string cardNumber)
         {
             return cardNumber.StartsWith("51") || cardNumber.StartsWith("52") || cardNumber.StartsWith("53") ||

@@ -236,6 +236,8 @@ namespace Lesson11
 			var carsRepeat = Enumerable
 				.Repeat(cars.FirstOrDefault(c => c.Manufacturer.Contains("Porsche")), 10);
 
+			var empty = Enumerable.Empty<Car>();
+
 			//foreach (var car in carsRepeat)
 			//{
 			//	Console.WriteLine($"{car.Manufacturer} {car.ModelName}");

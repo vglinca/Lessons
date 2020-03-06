@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Strategy
 {
+    //this class defines a general strategy algorithm
     //each concrete strategy will inherit from this class
     public abstract class CardValidationStrategy
     {
@@ -11,6 +12,8 @@ namespace Strategy
         //this method will contain validation logic depending on card
         public abstract bool IsValid(CreditCard card);
         //use Luhn algorithm for additional validation check
+        //as i read, this algorithm is used for car number validation
+        //so i added it here for being a little bit more realistic in general case
         //method returns true if given card number is valid
         public bool IsPassedLuhn(string num)
         {

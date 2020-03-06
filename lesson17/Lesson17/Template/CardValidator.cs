@@ -4,6 +4,8 @@ namespace Template
     public abstract class CardValidator
     {
         //this is a template method
+        //it defines a template algorithm
+        //each derived class should implement it in it's own way
         //it does algorithm realization
         //it calls teo abstract methods which must be implemented by a child class and one non-abstract method
         public bool IsValid(CreditCard card)
@@ -27,6 +29,7 @@ namespace Template
         public abstract bool BeginsWithCorrectNumbers(string cardNumber);
         public abstract bool HasCorrectLength(string cardNumber);
         //this method can't be overriden
+        //each concrete card validation algorithm will end with passing card number throughLuhn alg
         public bool PassedLuhn(string cardNumber)
         {
             int sum = 0;
