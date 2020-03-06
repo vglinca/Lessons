@@ -26,13 +26,21 @@ namespace Lesson8
                 Check(i, j);
                 Console.WriteLine($"i / j = {i / j}");
             } 
-            catch (WrongNumberException e) when (j > 0)
+            catch (WrongNumberException e) when (j % 2 != 0)
             {
                 Console.WriteLine($"{e.Message}\n{e.StackTrace}");
 #if DEBUG
                 throw;
 #endif
-            } catch (DivideByZeroException ex)
+            }
+            catch (WrongNumberException e) when (i < 0)
+            {
+                Console.WriteLine($"{e.Message}\n");
+#if DEBUG
+                throw;
+#endif
+            }
+            catch (DivideByZeroException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -80,11 +88,14 @@ namespace Lesson8
             }
         }
 
-        private static void CloseConnection(string conn)
+        private static void ConnectToDb(string conn, bool f)
         {
-            Console.WriteLine($"Connection \"{conn}\" has been closed.");
+            if(!f)
+            {
+                throw new FailedConnectionException($"Could not connect to database with connection \"{conn}\"");
+            }
+            Console.WriteLine("connection succeed.");
         }
-
         private static void ExecuteStatement(string sta, bool s)
         {
             if(!s)
@@ -93,14 +104,9 @@ namespace Lesson8
             }
             Console.WriteLine("Statement succeed.");
         }
-
-        private static void ConnectToDb(string conn, bool f)
+        private static void CloseConnection(string conn)
         {
-            if(!f)
-            {
-                throw new FailedConnectionException($"Could not connect to database with connection \"{conn}\"");
-            }
-            Console.WriteLine("connection succeed.");
+            Console.WriteLine($"Connection \"{conn}\" has been closed.");
         }
     }
 
